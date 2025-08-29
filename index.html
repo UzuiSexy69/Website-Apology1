@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apology Website 💖</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            color: #333;
+            padding: 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: #d6336c;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            font-size: 1rem;
+            padding: 14px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 120px;
+        }
+
+        .yes {
+            background: #ff4d88;
+            color: white;
+        }
+
+        .yes:hover {
+            background: #e6005c;
+        }
+
+        .no {
+            background: #999;
+            color: white;
+            position: absolute;
+        }
+
+        .no:hover {
+            background: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #result p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        #image {
+            margin-top: 20px;
+            display: none;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 id="question">Are you angry? 😔</h2>
+        <div id="buttons">
+            <button class="btn yes" onclick="handleAnswer('yes1')">Yes</button>
+            <button class="btn no" onclick="handleAnswer('no1')">No</button>
+        </div>
+        <div id="result" class="hidden"></div>
+        <img id="image" src="sorry_image.jpg" alt="Cute Sorry">
+    </div>
+
+    <script>
+        let step = 1;
+
+        function handleAnswer(answer) {
+            const question = document.getElementById("question");
+            const buttons = document.getElementById("buttons");
+            const result = document.getElementById("result");
+            const image = document.getElementById("image");
+
+            if (step === 1) {
+                if (answer === "yes1") {
+                    question.innerText = "Is your boyfriend the reason? 🥺";
+                    buttons.innerHTML = `
+            <button class="btn yes" onclick="handleAnswer('yes2')">Yes</button>
+            <button class="btn no" onclick="handleAnswer('no2')">No</button>
+          `;
+                    step = 2;
+                } else {
+                    question.innerText = "Yay 😍 I'm glad you're not angry!";
+                    buttons.style.display = "none";
+                }
+            }
+            else if (step === 2) {
+                if (answer === "yes2") {
+                    question.innerText = "Will you forgive him? 💕";
+                    buttons.innerHTML = `
+            <button class="btn yes" onclick="handleAnswer('yes3')">Yes</button>
+            <button class="btn no" id="noBtn">No 😡</button>
+          `;
+                    // Make "No" button float away on hover (touch & hover safe)
+                    setTimeout(() => {
+                        const noBtn = document.getElementById("noBtn");
+                        noBtn.addEventListener("mouseover", moveNo);
+                        noBtn.addEventListener("touchstart", moveNo);
+                    }, 100);
+                    step = 3;
+                } else {
+                    question.innerText = "Phew 😅 I'm relieved I'm not the reason!";
+                    buttons.style.display = "none";
+                }
+            }
+            else if (step === 3) {
+                if (answer === "yes3") {
+                    question.style.display = "none";
+                    buttons.style.display = "none";
+                    result.classList.remove("hidden");
+                    result.innerHTML = `
+            <h2>My Dearest Love 💖</h2>
+            <p>
+              I know I’ve hurt you, and I’m truly so sorry. I never meant to upset you. You mean the world to me, more than I can ever put into words. Your smile makes my day, and seeing you upset honestly breaks my heart. I just want to make things right and be the reason you’re happy again. ❤️
+              <br><br>
+              I promise to be better, to listen more, to care more, and to always put you first.  
+              Please forgive me, not because I deserve it, but because our love deserves another chance.  
+              I love you endlessly ❤️.
+            </p>
+          `;
+                    image.style.display = "block";
+                }
+            }
+        }
+
+        function moveNo() {
+            const noBtn = document.getElementById("noBtn");
+            const container = document.querySelector(".container");
+            const maxX = container.offsetWidth - noBtn.offsetWidth - 20;
+            const maxY = container.offsetHeight - noBtn.offsetHeight - 20;
+            const x = Math.floor(Math.random() * maxX);
+            const y = Math.floor(Math.random() * maxY);
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
+    </script>
+
+</body>
+
+</html>
